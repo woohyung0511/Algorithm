@@ -1,10 +1,6 @@
-import java.util.*;
-
 class Solution {
     public int solution(int[] citations) {
         int answer = 1;
-        
-        Arrays.sort(citations);
         
         while(true){
             int cnt = 0;
@@ -17,10 +13,9 @@ class Solution {
             if(answer<=cnt && citations.length-cnt<=answer){
                 answer++;
             }else{
-                answer-=1;
                 break;
             }
         }
-        return answer;
+        return answer-1;
     }
 }
