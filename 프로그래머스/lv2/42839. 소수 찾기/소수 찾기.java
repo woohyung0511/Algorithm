@@ -4,53 +4,51 @@ class Solution {
     public int solution(String numbers) {
         int answer = 0;
         
+        char [] ch = numbers.toCharArray();
+        
+        boolean [] visit = new boolean[ch.length];
+        
         HashSet <Integer> hs = new HashSet<>();
         
-        char [] arr =numbers.toCharArray();
-        
-        for(int i=1;i<=arr.length;i++){
-            boolean [] visited = new boolean[arr.length];
-            permute(arr,visited,0,i,"",hs);
+        for(int i=0;i<=ch.length;i++){
+            dfs(ch,i,0,"",visit,hs);
         }
         
-        for (int num : hs) {
-            if (isPrime(num)) {
+        for(int h: hs){
+            if(isPrime(h)){
                 answer++;
             }
         }
-        
         return answer;
     }
     
-    public void permute(char [] arr,boolean [] visited,int depth,int r,String current,HashSet<Integer> hs){
-        if(depth==r){
-                int n = Integer.valueOf(current);
-                hs.add(n);
-                return;
+    public void dfs(char [] ch,int r,int depth,String str,boolean [] visit,HashSet <Integer> hs){
+        if(r==depth){
+            if (!str.isEmpty()) {
+                hs.add(Integer.valueOf(str));
+            }
+            return;
         }
         
-        for(int i=0;i<arr.length;i++){
-            if(!visited[i]){
-                visited[i]=true;
-                permute(arr,visited,depth+1,r,current+arr[i],hs);
-                visited[i]=false;
+        for(int i=0;i<ch.length;i++){
+            if(visit[i]==false){
+                visit[i]=true;
+                dfs(ch,r,depth+1,str+ch[i],visit,hs);
+                visit[i]=false;
             }
         }
     }
     
     public boolean isPrime(int num){
-        
-        if(num==1 || num ==0)
-            return false;
-        
-        int lim = (int)Math.sqrt(num);
-        
-        for(int i=2;i<=lim;i++){
-            if(num%i==0){
+            if(num==1 || num==0){
                 return false;
+            }else{
+                for(int i=2;i<=Math.sqrt(num);i++){
+                    if(num%i==0){
+                        return false;
+                    }
+                }
             }
-        }
-        
         return true;
+        }
     }
-}
