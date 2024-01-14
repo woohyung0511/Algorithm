@@ -33,14 +33,14 @@ class Solution {
             }
         }
 
-        int answer1 = 0;
-        int answer2 = count1;
+        int gyo = 0;
+        int hap = count1;
 
         for (int i = 0; i < count1; i++) {
             for (int j = 0; j < count2; j++) {
                 if (arr1[i].equals(arr2[j])) {
-                    answer1++;
-                    arr2[j] = null;  
+                    gyo++;
+                    arr2[j] = null;
                     break;
                 }
             }
@@ -48,15 +48,15 @@ class Solution {
 
         for (int j = 0; j < count2; j++) {
             if (arr2[j] != null) {
-                answer2++;
+                hap++;
             }
         }
 
-        if (answer1 == 0 && answer2 == 0) {
+        if (gyo == 0 && hap == 0) {
             return 65536;
         }
 
-        answer = (int) (((double) answer1 / answer2) * 65536);
+        answer = (int) (((double) gyo / hap) * 65536);
 
         return answer;
     }
